@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 app.set("trust proxy", true);
 
 app.get("/", async (req, res) => {
-  const ip = req.ip;
+  const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
   const message = `Yeni Ziyaretçi IP: ${ip}`;
   const url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`;
 
